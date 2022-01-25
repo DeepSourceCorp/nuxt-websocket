@@ -15,18 +15,17 @@ const websocketModule: Module<ModuleOptions> = function (moduleOptions) {
   const options = Object.assign(this.options[CONFIG_KEY] || {}, moduleOptions)
 
   const templatePath = join('src', 'templates')
-  const exampleTemplatePath = join('nuxt-websocket', 'templates')
 
   this.addTemplate({
     src: join(templatePath, 'WebSocketManager.ts'),
-    fileName: join(exampleTemplatePath, 'WebSocketManager.ts'),
+    fileName: join('nuxt-websocket', 'WebSocketManager.ts'),
     options
   })
 
   // Register plugin
   this.addPlugin({
     src: join(templatePath, 'plugin.ts'),
-    fileName: join(exampleTemplatePath, 'websocket.client.ts'),
+    fileName: join('nuxt-websocket', 'websocket.client.ts'),
     options
   })
 };
