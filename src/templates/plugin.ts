@@ -1,7 +1,8 @@
 import { NuxtAppOptions } from '@nuxt/types'
 import { Inject } from '@nuxt/types/app'
+
 import Vue from 'vue'
-import WebSocketManager from './WebSocketManager.client'
+import WebSocketManager from './WebSocketManager'
 
 // Example Usage
 
