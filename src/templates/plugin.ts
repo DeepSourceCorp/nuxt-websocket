@@ -15,13 +15,13 @@ import WebSocketManager from './WebSocketManager'
 // Sending message
 // this.$socketManager.send({ event: 'socket', data: 'Hello' })
 
-const uri = '<%= options.uri %>'
+const urlFromOptions = '<%= options.url %>'
 
 export default ({ app }: { app: NuxtAppOptions }, inject: Inject): void => {
   const url =
     process.env.NODE_ENV === 'development'
       ? 'wss://echo.websocket.org/'
-      : app.$config.webSocketUri || uri
+      : app.$config.webSocketUri || urlFromOptions
 
   const emitter = new Vue()
   const manager = new WebSocketManager(url, emitter)
