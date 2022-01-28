@@ -40,6 +40,7 @@
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
+    "@nuxtjs/tailwindcss": "^4.2.1",
     "@siroc/jest-preset": "latest",
     "@types/jest": "latest",
     "babel-eslint": "latest",
