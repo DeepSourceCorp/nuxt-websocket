@@ -11,24 +11,17 @@
           : 'bg-red-100 border-red-500 text-red-700'
       ]"
     >
-      <p class="font-bold">{{ connectionStatusText }}</p>
+      <p class="font-bold">
+        {{ connectionStatusText }}
+      </p>
     </div>
 
-    <button
-      :disabled="canCloseConnection"
-      class="btn btn-green"
-      :class="{ 'cursor-not-allowed opacity-50': canCloseConnection }"
-      @click="openConnection"
-    >
-      Open connection
-    </button>
-
-    <form class="border p-4 space-y-2">
+    <form class="border p-4 space-y-4">
       <div class="inline-flex items-center w-full space-x-2">
         <div class="w-44">
           <label
-            class="block text-gray-500 font-bold mb-1 pr-4"
             for="msgReceived"
+            class="block text-gray-500 font-bold mb-1 pr-4"
           >
             Message received:
           </label>
@@ -41,12 +34,13 @@
             :value="msgReceived"
             type="text"
             class="bg-transparent appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 cursor-not-allowed"
-          />
+          >
         </div>
       </div>
+
       <div class="inline-flex items-center w-full space-x-2">
         <div class="w-44">
-          <label class="block text-gray-500 font-bold mb-1 pr-4" for="msgSend">
+          <label for="msgSend" class="block text-gray-500 font-bold mb-1 pr-4">
             Message send:
           </label>
         </div>
@@ -57,75 +51,89 @@
             v-model="msgSend"
             type="text"
             class="w-48 bg-transparent appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-          />
+          >
         </div>
       </div>
-    </form>
 
-    <div class="space-x-2">
-      <button class="btn btn-blue" @click="sendMessage">
-        Send message
-      </button>
-      <button
-        :disabled="canOpenConnection"
-        class="btn btn-red"
-        :class="{ 'cursor-not-allowed opacity-50': canOpenConnection }"
-        @click="closeConnection"
-      >
-        Close connection
-      </button>
-    </div>
+      <div class="space-x-2">
+        <button
+          :disabled="canCloseConnection"
+          class="btn btn-green"
+          :class="{ 'cursor-not-allowed opacity-50': canCloseConnection }"
+          @click="openConnection"
+        >
+          Open connection
+        </button>
+        <button
+          :disabled="!msgSend"
+          class="btn btn-blue"
+          :class="{ 'cursor-not-allowed opacity-50': !msgSend }"
+          @click.prevent="sendMessage"
+        >
+          Send message
+        </button>
+        <button
+          :disabled="canOpenConnection"
+          class="btn btn-red"
+          :class="{ 'cursor-not-allowed opacity-50': canOpenConnection }"
+          @click="closeConnection"
+        >
+          Close connection
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       canOpenConnection: false,
       canCloseConnection: true,
-      connectionStatus: "",
-      msgSend: "Hello world",
-      msgReceived: ""
-    };
-  },
-  mounted() {
-    this.$socket.$on("socket", data => (this.msgReceived = data));
-    this.connectionStatus = "open";
-  },
-  beforeDestroy() {
-    this.$socket.$off("socket");
-  },
-  methods: {
-    openConnection() {
-      this.$socketManager.connect();
-      this.connectionStatus = "open";
-      this.canOpenConnection = false;
-      this.canCloseConnection = true;
-    },
-    closeConnection() {
-      this.$socketManager.ws.close();
-      this.connectionStatus = "closed";
-      this.canCloseConnection = false;
-      this.canOpenConnection = true;
-    },
-    sendMessage() {
-      this.$socketManager.send({ event: "socket", data: this.msgSend });
-      this.connectionStatus = "open";
-      this.canOpenConnection = false;
-      this.canCloseConnection = true;
+      connectionStatus: '',
+      msgSend: 'Hello world',
+      msgReceived: ''
     }
   },
   computed: {
-    connectionStatusText() {
+    connectionStatusText () {
       const statusMap = {
-        open: "Connection established!",
-        closed: "Connection closed!"
-      };
-      return statusMap[this.connectionStatus];
+        open: 'Connection established!',
+        closed: 'Connection closed!'
+      }
+      return statusMap[this.connectionStatus]
+    }
+  },
+  mounted () {
+    this.$socket.$on('socket', data => (this.msgReceived = data))
+    this.connectionStatus = 'open'
+  },
+  beforeDestroy () {
+    this.$socket.$off('socket')
+  },
+  methods: {
+    openConnection () {
+      this.$socketManager.connect()
+      this.toggleProperties()
+    },
+    closeConnection () {
+      this.$socketManager.ws.close()
+      this.toggleProperties(false)
+      this.msgSend = ''
+      this.msgReceived = ''
+    },
+    sendMessage () {
+      this.$socketManager.send({ event: 'socket', data: this.msgSend })
+      this.toggleProperties()
+    },
+    toggleProperties (isOpen = true) {
+      this.connectionStatus = isOpen ? 'open' : 'closed'
+      this.canOpenConnection = !isOpen
+      this.canCloseConnection = isOpen
     }
   }
-};
+}
 </script>
 
 <style scoped>
