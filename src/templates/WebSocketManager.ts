@@ -1,21 +1,20 @@
 import Vue from 'vue'
-
 export default class WebSocketManager {
   url: string;
   emitter: Vue;
   reconnectInterval: number;
   ws: WebSocket;
 
-  constructor (url: string, emitter: Vue) {
+  constructor (url: string, reconnectInterval: number) {
     this.url = url
-    this.emitter = emitter
-    this.reconnectInterval = 1000
+    this.emitter = new Vue()
+    this.reconnectInterval = reconnectInterval || 1000
     this.ws = new WebSocket(this.url)
     this.connect()
   }
 
   connect () {
-    this.reconnectInterval = 1000
+    this.reconnectInterval = this.reconnectInterval || 1000
     this.ws = new WebSocket(this.url)
 
     this.ws.onmessage = (message) => {
