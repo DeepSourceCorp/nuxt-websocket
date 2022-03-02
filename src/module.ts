@@ -1,38 +1,38 @@
-import { join } from 'path'
-import { Module } from '@nuxt/types'
-import Vue from 'vue'
+import { join } from "path";
+import { Module } from "@nuxt/types";
+import Vue from "vue";
 
-import { name, version } from '../package.json'
-import WebSocketManager from './templates/WebSocketManager'
+import { name, version } from "../package.json";
+import WebSocketManager from "./templates/WebSocketManager";
 
 export interface ModuleOptions {
   uri: string;
 }
 
-const CONFIG_KEY = 'websocket'
+const CONFIG_KEY = "websocket";
 
 const websocketModule: Module<ModuleOptions> = function (moduleOptions) {
-  const options = Object.assign(this.options[CONFIG_KEY] || {}, moduleOptions)
+  const options = Object.assign(this.options[CONFIG_KEY] || {}, moduleOptions);
 
-  const templatePath = join('src', 'templates')
+  const templatePath = join("src", "templates");
 
   this.addTemplate({
-    src: join(templatePath, 'WebSocketManager.ts'),
-    fileName: join('nuxt-websocket', 'WebSocketManager.ts'),
-    options
-  })
+    src: join(templatePath, "WebSocketManager.ts"),
+    fileName: join("nuxt-websocket", "WebSocketManager.ts"),
+    options,
+  });
 
   // Register plugin
   this.addPlugin({
-    src: join(templatePath, 'plugin.ts'),
-    fileName: join('nuxt-websocket', 'websocket.client.ts'),
-    options
-  })
+    src: join(templatePath, "plugin.ts"),
+    fileName: join("nuxt-websocket", "websocket.client.ts"),
+    options,
+  });
 };
 
-(websocketModule as any).meta = { name, version }
+(websocketModule as any).meta = { name, version };
 
-declare module '@nuxt/types' {
+declare module "@nuxt/types" {
   interface NuxtConfig {
     $socket: Vue;
     $socketManager: WebSocketManager;
@@ -43,11 +43,11 @@ declare module '@nuxt/types' {
   } // Nuxt 2.9 - 2.13
 }
 
-declare module 'vue/types/vue' {
+declare module "vue/types/vue" {
   interface Vue {
     $socket: Vue;
     $socketManager: WebSocketManager;
   }
 }
 
-export default websocketModule
+export default websocketModule;

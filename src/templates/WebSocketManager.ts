@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from "vue";
 
 /**
  * The WebSocketManager class that defines methods for websocket interaction.
@@ -17,12 +17,12 @@ export default class WebSocketManager {
    * @param {number} reconnectInterval Time in ms to reconnect
    * @returns {WebSocketManager} The WebSocketManager instance
    */
-  constructor (url: string, reconnectInterval: number) {
-    this.url = url
-    this.emitter = new Vue()
-    this.reconnectInterval = reconnectInterval
-    this.ws = new WebSocket(this.url)
-    this.connect()
+  constructor(url: string, reconnectInterval: number) {
+    this.url = url;
+    this.emitter = new Vue();
+    this.reconnectInterval = reconnectInterval;
+    this.ws = new WebSocket(this.url);
+    this.connect();
   }
 
   /**
@@ -31,40 +31,40 @@ export default class WebSocketManager {
    *
    * @returns {void} Returns once the connection is established.
    */
-  connect (): void {
-    this.reconnectInterval = this.reconnectInterval || 1000
-    this.ws = new WebSocket(this.url)
+  connect(): void {
+    this.reconnectInterval = this.reconnectInterval || 1000;
+    this.ws = new WebSocket(this.url);
 
     this.ws.onmessage = (message) => {
       try {
-        const data = JSON.parse(message.data)
-        this.emitter.$emit(data.event, data.data)
+        const data = JSON.parse(message.data);
+        this.emitter.$emit(data.event, data.data);
       } catch (err) {
-        this.emitter.$emit('message', message)
+        this.emitter.$emit("message", message);
       }
-    }
+    };
 
     this.ws.onclose = (event) => {
       if (event) {
         // Event.code 1000 is our normal close event
         if (event.code !== 1000) {
-          const maxReconnectInterval = 3000
+          const maxReconnectInterval = 3000;
           setTimeout(() => {
             if (this.reconnectInterval < maxReconnectInterval) {
               // Reconnect interval can't be > x seconds
-              this.reconnectInterval += 1000
+              this.reconnectInterval += 1000;
             }
-            this.connect()
-          }, this.reconnectInterval)
+            this.connect();
+          }, this.reconnectInterval);
         }
       }
-    }
+    };
 
     this.ws.onerror = (error): void => {
       // eslint-disable-next-line no-console
-      console.error(error)
-      this.ws.close()
-    }
+      console.error(error);
+      this.ws.close();
+    };
   }
 
   /**
@@ -73,11 +73,11 @@ export default class WebSocketManager {
    * @param {string | Record<string, unknown>} message The data to be transmitted
    * @returns {Promise<void>} A promise that resolves with no return value on transmitting the data.
    */
-  async send (message: string | Record<string, unknown>): Promise<void> {
-    await this.ready()
+  async send(message: string | Record<string, unknown>): Promise<void> {
+    await this.ready();
     const parsedMessage =
-      typeof message === 'string' ? message : JSON.stringify(message)
-    return this.ws.send(parsedMessage)
+      typeof message === "string" ? message : JSON.stringify(message);
+    return this.ws.send(parsedMessage);
   }
 
   /**
@@ -86,16 +86,16 @@ export default class WebSocketManager {
    * @returns {Promise<void>} A promise that resolves with no return value straightaway if the WebSocket connection is open.
    * Or else, waits until the open event is fired.
    */
-  ready (): Promise<void> {
+  ready(): Promise<void> {
     return new Promise<void>((resolve) => {
       if (this.ws.readyState !== this.ws.OPEN) {
         this.ws.onopen = () => {
-          this.reconnectInterval = 1000
-          resolve()
-        }
+          this.reconnectInterval = 1000;
+          resolve();
+        };
       } else {
-        resolve()
+        resolve();
       }
-    })
+    });
   }
 }

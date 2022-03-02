@@ -30,7 +30,7 @@ You can pass different options using the `websocket` property in your `nuxt.conf
 export default {
   websocket: {
     // module options
-  }
+  },
 };
 ```
 
@@ -60,8 +60,8 @@ export default {
   // Via Runtime config
   publicRuntimeConfig: {
     webSocketUrlForDev: process.env.WEBSOCKET_URL_FOR_DEV,
-    webSocketUrlForProd: process.env.WEBSOCKET_URL_FOR_PROD
-  }
+    webSocketUrlForProd: process.env.WEBSOCKET_URL_FOR_PROD,
+  },
 };
 ```
 
