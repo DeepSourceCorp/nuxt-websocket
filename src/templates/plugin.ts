@@ -15,7 +15,7 @@ import WebSocketManager from './WebSocketManager'
 // Sending message
 // this.$socketManager.send({ event: 'socket', data: 'Hello' })
 
-const reconnectInterval = Number('<%= options.reconnectInterval %>')
+const reconnectInterval = Number('<%= options.reconnectInterval %>') || 1000
 const urlForProdFromOptions = '<%= options.urlForProd %>'
 const urlForDevFromOptions = '<%= options.urlForDev %>'
 

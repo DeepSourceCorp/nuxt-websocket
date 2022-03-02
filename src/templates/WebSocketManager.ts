@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 /**
- * The WebSocketManager class
+ * The WebSocketManager class that defines methods for websocket interaction.
  */
 export default class WebSocketManager {
   url: string;
@@ -20,7 +20,7 @@ export default class WebSocketManager {
   constructor (url: string, reconnectInterval: number) {
     this.url = url
     this.emitter = new Vue()
-    this.reconnectInterval = reconnectInterval || 1000
+    this.reconnectInterval = reconnectInterval
     this.ws = new WebSocket(this.url)
     this.connect()
   }
@@ -74,7 +74,8 @@ export default class WebSocketManager {
    */
   async send (message: string | Record<string, unknown>) {
     await this.ready()
-    const parsedMessage = typeof message === 'string' ? message : JSON.stringify(message)
+    const parsedMessage =
+      typeof message === 'string' ? message : JSON.stringify(message)
     return this.ws.send(parsedMessage)
   }
 
