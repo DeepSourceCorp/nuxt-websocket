@@ -31,7 +31,7 @@ export default class WebSocketManager {
    *
    * @returns {void} Returns once the connection is established.
    */
-  connect () {
+  connect (): void {
     this.reconnectInterval = this.reconnectInterval || 1000
     this.ws = new WebSocket(this.url)
 
@@ -73,7 +73,7 @@ export default class WebSocketManager {
    * @param {string | Record<string, unknown>} message The data to be transmitted
    * @returns {Promise<void>} A promise that resolves with no return value on transmitting the data.
    */
-  async send (message: string | Record<string, unknown>) {
+  async send (message: string | Record<string, unknown>): Promise<void> {
     await this.ready()
     const parsedMessage =
       typeof message === 'string' ? message : JSON.stringify(message)
@@ -86,7 +86,7 @@ export default class WebSocketManager {
    * @returns {Promise<void>} A promise that resolves with no return value straightaway if the WebSocket connection is open.
    * Or else, waits until the open event is fired.
    */
-  ready () {
+  ready (): Promise<void> {
     return new Promise<void>((resolve) => {
       if (this.ws.readyState !== this.ws.OPEN) {
         this.ws.onopen = () => {
