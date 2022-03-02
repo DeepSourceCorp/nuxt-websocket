@@ -1,6 +1,6 @@
 export default {
-  modules: ['@nuxt/typescript-build', '../src/module.ts'],
+  modules: ["@nuxt/typescript-build", "../src/module.ts"],
   websocket: {
-    urlForProd: 'wss://sockets.deepsource.io/'
-  }
-}
+    urlForProd: "wss://sockets.deepsource.io/",
+  },
+};

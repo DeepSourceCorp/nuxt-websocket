@@ -1,8 +1,8 @@
-import { NuxtAppOptions } from '@nuxt/types'
-import { Inject } from '@nuxt/types/app'
+import { NuxtAppOptions } from "@nuxt/types";
+import { Inject } from "@nuxt/types/app";
 
-import Vue from 'vue'
-import WebSocketManager from './WebSocketManager'
+import Vue from "vue";
+import WebSocketManager from "./WebSocketManager";
 
 // Example Usage
 
@@ -15,20 +15,20 @@ import WebSocketManager from './WebSocketManager'
 // Sending message
 // this.$socketManager.send({ event: 'socket', data: 'Hello' })
 
-const reconnectInterval = Number('<%= options.reconnectInterval %>') || 1000
-const urlForProdFromOptions = '<%= options.urlForProd %>'
-const urlForDevFromOptions = '<%= options.urlForDev %>'
+const reconnectInterval = Number("<%= options.reconnectInterval %>") || 1000;
+const urlForProdFromOptions = "<%= options.urlForProd %>";
+const urlForDevFromOptions = "<%= options.urlForDev %>";
 
 export default ({ app }: { app: NuxtAppOptions }, inject: Inject): void => {
   const url =
-    process.env.NODE_ENV === 'development'
+    process.env.NODE_ENV === "development"
       ? app.$config.webSocketUrlForDev ||
         urlForDevFromOptions ||
-        'wss://echo.websocket.events/'
-      : app.$config.webSocketUrlForProd || urlForProdFromOptions
+        "wss://echo.websocket.events/"
+      : app.$config.webSocketUrlForProd || urlForProdFromOptions;
 
-  const emitter = new Vue()
-  const manager = new WebSocketManager(url, reconnectInterval)
-  inject('socket', emitter)
-  inject('socketManager', manager)
-}
+  const emitter = new Vue();
+  const manager = new WebSocketManager(url, reconnectInterval);
+  inject("socket", emitter);
+  inject("socketManager", manager);
+};

@@ -1,11 +1,10 @@
 ---
 title: Introduction
-description: ''
+description: ""
 category: Getting started
 items:
- - Easy to configure
- - Uses Nuxt
-
+  - Easy to configure
+  - Uses Nuxt
 ---
 
 ## Key features
