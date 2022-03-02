@@ -16,8 +16,6 @@ enabled = true
     "browser",
     "jest"
   ]
+  plugins = ["vue"]
   dialect = "typescript"
-
-[[transformers]]
-name = "prettier"
-enabled = true
+  style_guide = "airbnb"
