@@ -20,7 +20,7 @@
     "./package.json": "./package.json"
   },
   "main": "./dist/module.js",
-  "module": "./dist/module.js",
+  "module": "./dist/module.mjs",
   "types": "./dist/module.d.ts",
   "files": [
     "dist"
