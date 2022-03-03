@@ -55,7 +55,9 @@
         </div>
       </div>
 
-      <div class="space-x-2">
+      <div
+        class="inline-flex flex-col space-y-2 md:flex-row md:space-x-2 md:space-y-0"
+      >
         <button
           :disabled="canCloseConnection"
           class="btn btn-green"
