@@ -118,7 +118,7 @@ export default {
       this.toggleProperties()
     },
     closeConnection () {
-      this.$socketManager.ws.close()
+      this.$socketManager.close()
       this.toggleProperties(false)
       this.msgSend = ''
       this.msgReceived = ''

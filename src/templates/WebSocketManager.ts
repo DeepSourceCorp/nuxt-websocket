@@ -14,8 +14,8 @@ export default class WebSocketManager {
    * Initializes properties and invokes connect method.
    *
    * @param {string} url The websocket URL to connect.
-   * @param {number} reconnectInterval Time in ms to reconnect
-   * @returns {WebSocketManager} The WebSocketManager instance
+   * @param {number} reconnectInterval Time in ms to reconnect.
+   * @returns {WebSocketManager} The WebSocketManager instance.
    */
   constructor (url: string, emitter: Vue, reconnectInterval: number) {
     this.url = url
@@ -29,7 +29,7 @@ export default class WebSocketManager {
    * Establishes WebSocket connection.
    * Defines handlers for message, close and error events.
    *
-   * @returns {void} Returns once the connection is established.
+   * @returns {void} Returns with no return value once the connection is established.
    */
   connect (): void {
     this.reconnectInterval = this.reconnectInterval || 1000
@@ -46,12 +46,12 @@ export default class WebSocketManager {
 
     this.ws.onclose = (event) => {
       if (event) {
-        // Event.code 1000 is our normal close event
+        // 1000 is the normal close event.
         if (event.code !== 1000) {
           const maxReconnectInterval = 3000
           setTimeout(() => {
             if (this.reconnectInterval < maxReconnectInterval) {
-              // Reconnect interval can't be > x seconds
+              // Reconnect interval can't be > x seconds.
               this.reconnectInterval += 1000
             }
             this.connect()
@@ -65,19 +65,6 @@ export default class WebSocketManager {
       console.error(error)
       this.ws.close()
     }
-  }
-
-  /**
-   * Waits for the WebSocket connection to be open if not already and transmits the data received.
-   *
-   * @param {string | Record<string, unknown>} message The data to be transmitted
-   * @returns {Promise<void>} A promise that resolves with no return value on transmitting the data.
-   */
-  async send (message: string | Record<string, unknown>): Promise<void> {
-    await this.ready()
-    const parsedMessage =
-      typeof message === 'string' ? message : JSON.stringify(message)
-    return this.ws.send(parsedMessage)
   }
 
   /**
@@ -97,5 +84,29 @@ export default class WebSocketManager {
         resolve()
       }
     })
+  }
+
+  /**
+   * Waits for the WebSocket connection to be open if not already and transmits the data received.
+   *
+   * @param {string | Record<string, unknown>} message The data to be transmitted.
+   * @returns {Promise<void>} A promise that resolves with no return value on transmitting the data.
+   */
+  async send (message: string | Record<string, unknown>): Promise<void> {
+    await this.ready()
+    const parsedMessage =
+      typeof message === 'string' ? message : JSON.stringify(message)
+    return this.ws.send(parsedMessage)
+  }
+
+  /**
+   * Closes the websocket connection.
+   *
+   * @param {number | undefined} [code] The connection close code.
+   * @param {string | undefined} [reason] The connection close reason.
+   * @returns {void} Returns with no return value once the connection is closed.
+   */
+  close (code?: number | undefined, reason?: string | undefined): void {
+    this.ws.close(code, reason)
   }
 }
