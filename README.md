@@ -1,5 +1,9 @@
 # nuxt-websocket
 
+[![DeepSource](https://deepsource.io/gh/deepsourcelabs/nuxt-websocket.svg/?label=active+issues&show_trend=true&token=aDA1Tz2a_4FxFsxvu4by_loF)](https://deepsource.io/gh/deepsourcelabs/nuxt-websocket/?ref=repository-badge) [![DeepSource](https://deepsource.io/gh/deepsourcelabs/nuxt-websocket.svg/?label=resolved+issues&show_trend=true&token=aDA1Tz2a_4FxFsxvu4by_loF)](https://deepsource.io/gh/deepsourcelabs/nuxt-websocket/?ref=repository-badge)
+
+> Nuxt.js module for websocket interactions.
+
 ## Setup
 
 1. Add `@deepsourcelabs/nuxt-websocket` dependency to your project
@@ -119,7 +123,28 @@ await this.$socketManager.ready();
 Waits for the websocket connection to be open if not already and transmits the data received.
 
 ```js
-this.$socketManager.send({ event: "socket", data: "Hello world" });
+await this.$socketManager.send({ event: "socket", data: "Hello world" });
+```
+
+#### `close(code?: number | undefined, reason?: string | undefined): void`
+
+Closes the WebSocket connection, optionally using code as the the WebSocket connection close code and reason as the the WebSocket connection close reason.
+
+```js
+this.$socketManager.close();
+```
+
+> The [onmessage](https://github.com/deepsourcelabs/nuxt-websocket/blob/main/src/templates/WebSocketManager.ts#L38-L45) handler expects data received from the server as either a string or an object of the shape `{event: string, data: string}`.
+
+```js
+// Data received of the type string.
+// Emits an event by the name `message`.
+this.$socket.on("message", () => {});
+
+// Data received as an object.
+// Emits an event based on the value for the 'event' key.
+// {event: "socket", data: "Hello world"}
+this.$socket.on("socket", () => {});
 ```
 
 ## Development
