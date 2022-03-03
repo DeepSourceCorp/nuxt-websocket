@@ -11,6 +11,6 @@ describe('module', () => {
     const page = await createPage('/')
     const html = await page.content()
 
-    expect(html).toContain('Works!')
+    expect(html).toContain('Connection established!')
   })
 })

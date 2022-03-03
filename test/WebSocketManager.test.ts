@@ -4,7 +4,7 @@ import WebSocketManager from '../src/templates/WebSocketManager'
 describe('WebSocketManager', () => {
   const getInstance = () => {
     const emitter = new Vue()
-    return new WebSocketManager('ws://localhost:8025', emitter)
+    return new WebSocketManager('ws://localhost:8025', emitter, 1000)
   }
 
   afterEach(() => {
@@ -12,7 +12,7 @@ describe('WebSocketManager', () => {
   })
 
   test('constructor sets the properties and invokes connect method', () => {
-    // Track connect method calls
+    // Track connect method calls.
     jest.spyOn(WebSocketManager.prototype, 'connect')
 
     const instance = getInstance()
@@ -26,7 +26,7 @@ describe('WebSocketManager', () => {
   })
 
   test('connect method', () => {
-    // connect method is invoked by the constructor
+    // connect method is invoked by the constructor.
     const instance = getInstance()
 
     // Assertions
@@ -34,22 +34,26 @@ describe('WebSocketManager', () => {
     expect(instance.ws).toBeInstanceOf(WebSocket)
   })
 
-  test('send method', async () => {
-    // Track ready method calls
-    jest.spyOn(WebSocketManager.prototype, 'ready')
+  test('ready method', () => {
+    const instance = getInstance()
 
+    // The promise is resolved straightaway if the readyState is not 1.
+    expect(instance.ready()).resolves.toBe(undefined)
+  })
+
+  test('send method', async () => {
     const instance = getInstance()
 
     // Mock implementations of other function calls
     jest.spyOn(instance, 'ready').mockResolvedValue(Promise.resolve())
-    jest.spyOn(WebSocket.prototype, 'send').mockReturnValue(undefined)
+    jest.spyOn(instance.ws, 'send').mockReturnValue(undefined)
 
     // Invoke send method with the message as a string
     await instance.send('Hello world')
 
     // Assertions
     expect(instance.ready).toBeCalled()
-    expect(WebSocket.prototype.send).toBeCalledWith('Hello world')
+    expect(instance.ws.send).toBeCalledWith('Hello world')
 
     // Invoke send method with the message as an object
     const msg = {
@@ -66,16 +70,19 @@ describe('WebSocketManager', () => {
 
     // Assertions
     expect(instance.ready).toBeCalled()
-    expect(WebSocket.prototype.send).toBeCalledWith(JSON.stringify(msg))
+    expect(instance.ws.send).toBeCalledWith(JSON.stringify(msg))
   })
 
-  test('ready method', async () => {
+  test('close method', () => {
     const instance = getInstance()
 
-    // The promise is resolved straightaway if the readyState is 1
-    Object.defineProperty(instance.ws, 'readyState', {
-      value: 1
-    })
-    await instance.ready()
+    // Track WebSocket instance close method calls.
+    instance.ws.close = jest.fn()
+
+    // Invoke close method.
+    instance.close()
+
+    // Assertion
+    expect(instance.ws.close).toBeCalled()
   })
 })
