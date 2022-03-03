@@ -1,23 +1,26 @@
 {
   "name": "@deepsourcelabs/nuxt-websocket",
   "version": "0.0.0",
-  "description": "",
+  "description": "Nuxt.js module for websocket interactions.",
   "keywords": [
     "nuxt",
     "module",
-    "nuxt-module"
+    "nuxt-module",
+    "websocket"
   ],
-  "repository": "github_repo",
+  "homepage": "https://github.com/deepsourcelabs/nuxt-websocket",
+  "repository": "https://github.com/deepsourcelabs/nuxt-websocket",
   "license": "MIT",
   "exports": {
     ".": {
       "require": "./dist/module.js",
-      "import": "./dist/module.es.js"
+      "import": "./dist/module.mjs"
     },
     "./templates/*": "./dist/templates/*",
     "./package.json": "./package.json"
   },
   "main": "./dist/module.js",
+  "module": "./dist/module.mjs",
   "types": "./dist/module.d.ts",
   "files": [
     "dist"
