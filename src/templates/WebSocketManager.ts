@@ -50,8 +50,8 @@ export default class WebSocketManager {
         if (event.code !== 1000) {
           const maxReconnectInterval = 3000
           setTimeout(() => {
+          // Reconnect interval can't be > x seconds.
             if (this.reconnectInterval < maxReconnectInterval) {
-              // Reconnect interval can't be > x seconds.
               this.reconnectInterval += 1000
             }
             this.connect()
