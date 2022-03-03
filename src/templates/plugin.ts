@@ -28,7 +28,7 @@ export default ({ app }: { app: NuxtAppOptions }, inject: Inject): void => {
       : app.$config.webSocketUrlForProd || urlForProdFromOptions
 
   const emitter = new Vue()
-  const manager = new WebSocketManager(url, reconnectInterval)
+  const manager = new WebSocketManager(url, emitter, reconnectInterval)
   inject('socket', emitter)
   inject('socketManager', manager)
 }

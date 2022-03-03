@@ -17,9 +17,9 @@ export default class WebSocketManager {
    * @param {number} reconnectInterval Time in ms to reconnect
    * @returns {WebSocketManager} The WebSocketManager instance
    */
-  constructor (url: string, reconnectInterval: number) {
+  constructor (url: string, emitter: Vue, reconnectInterval: number) {
     this.url = url
-    this.emitter = new Vue()
+    this.emitter = emitter
     this.reconnectInterval = reconnectInterval
     this.ws = new WebSocket(this.url)
     this.connect()
