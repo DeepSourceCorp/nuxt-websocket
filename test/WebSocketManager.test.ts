@@ -25,7 +25,7 @@ describe('WebSocketManager', () => {
     expect(instance.connect).toBeCalled()
   })
 
-  test('connect method', () => {
+  test('connect method establishes websocket connection', () => {
     // connect method is invoked by the constructor.
     const instance = getInstance()
 
@@ -34,28 +34,36 @@ describe('WebSocketManager', () => {
     expect(instance.ws).toBeInstanceOf(WebSocket)
   })
 
-  test('ready method', () => {
+  test('ready method ensures the websocket connection is open', () => {
     const instance = getInstance()
 
     // The promise is resolved straightaway if the readyState is not 1.
     expect(instance.ready()).resolves.toBe(undefined)
   })
 
-  test('send method', async () => {
+  test('send method transmits the data received as a string', async () => {
     const instance = getInstance()
 
-    // Mock implementations of other function calls
+    // Mock implementations of other function calls.
     jest.spyOn(instance, 'ready').mockResolvedValue(Promise.resolve())
     jest.spyOn(instance.ws, 'send').mockReturnValue(undefined)
 
-    // Invoke send method with the message as a string
+    // Invoke send method with the message as a string.
     await instance.send('Hello world')
 
     // Assertions
     expect(instance.ready).toBeCalled()
     expect(instance.ws.send).toBeCalledWith('Hello world')
+  })
 
-    // Invoke send method with the message as an object
+  test('send method transmits the data received as an object', async () => {
+    const instance = getInstance()
+
+    // Mock implementations of other function calls.
+    jest.spyOn(instance, 'ready').mockResolvedValue(Promise.resolve())
+    jest.spyOn(instance.ws, 'send').mockReturnValue(undefined)
+
+    // Invoke send method with the message as an object.
     const msg = {
       type: 'message',
       text: 'Hello world',
@@ -73,7 +81,7 @@ describe('WebSocketManager', () => {
     expect(instance.ws.send).toBeCalledWith(JSON.stringify(msg))
   })
 
-  test('close method', () => {
+  test('close method closes the websocket connection', () => {
     const instance = getInstance()
 
     // Track WebSocket instance close method calls.
