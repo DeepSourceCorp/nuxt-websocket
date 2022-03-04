@@ -134,7 +134,7 @@ Closes the WebSocket connection, optionally using code as the the WebSocket conn
 this.$socketManager.close();
 ```
 
-> The [onmessage](https://github.com/deepsourcelabs/nuxt-websocket/blob/main/src/templates/WebSocketManager.ts#L38-L45) handler expects data received from the server as either a string or an object of the shape `{event: string, data: string}`.
+> The [onmessage](https://github.com/deepsourcelabs/nuxt-websocket/blob/main/src/templates/WebSocketManager.ts#L38-L45) handler expects data received from the server as either a string or an object of the shape `{ event: string, data: string }`.
 
 ```js
 // Data received of the type string.
@@ -143,7 +143,7 @@ this.$socket.on("message", () => {});
 
 // Data received as an object.
 // Emits an event based on the value for the 'event' key.
-// {event: "socket", data: "Hello world"}
+// { event: "socket", data: "Hello world" }
 this.$socket.on("socket", () => {});
 ```
 
