@@ -37,8 +37,8 @@ export default class WebSocketManager {
 
     this.ws.onmessage = (message) => {
       try {
-        const data = JSON.parse(message.data)
-        this.emitter.$emit(data.event, data.data)
+        const { event, data } = JSON.parse(message.data)
+        this.emitter.$emit(event, data)
       } catch (err) {
         this.emitter.$emit('message', message)
       }
