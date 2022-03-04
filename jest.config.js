@@ -12,5 +12,6 @@ module.exports = {
     npm_package: '<rootDir>/src'
   },
   collectCoverage: true,
-  collectCoverageFrom: ['src/**']
+  collectCoverageFrom: ['src/**'],
+  coverageReporters: ['cobertura']
 }
