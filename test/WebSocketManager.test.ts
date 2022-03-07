@@ -2,21 +2,21 @@ import Vue from 'vue'
 import WS from 'jest-websocket-mock'
 import WebSocketManager from '../src/templates/WebSocketManager'
 
-let ws = {} as WS
+let server = {} as WS
 let client = {} as WebSocketManager
 
 describe('WebSocketManager', () => {
   beforeEach(async () => {
     const emitter = new Vue()
 
-    // create a WS instance, listening on port 8025 on localhost.
-    ws = new WS('ws://localhost:8025')
+    // Create a WS instance, listening on port 8025 on localhost.
+    server = new WS('ws://localhost:8025')
 
     // Connect to the mock websocket server.
     client = new WebSocketManager('ws://localhost:8025', emitter, 1000)
 
     // Wait for the server to have established the connection.
-    await ws.connected
+    await server.connected
   })
 
   afterEach(() => {
@@ -39,7 +39,7 @@ describe('WebSocketManager', () => {
     Vue.prototype.$emit = jest.fn()
 
     // Send data to the client.
-    ws.send('Test message')
+    server.send('Test message')
 
     // Assertions
     expect(Vue.prototype.$emit.mock.calls[0][0]).toBe('message')
@@ -51,7 +51,7 @@ describe('WebSocketManager', () => {
     Vue.prototype.$emit = jest.fn()
 
     // Send data to the client.
-    ws.send(JSON.stringify({ event: 'socket', data: 'Hello world' }))
+    server.send(JSON.stringify({ event: 'socket', data: 'Hello world' }))
 
     // Assertions
     expect(Vue.prototype.$emit.mock.calls[0][0]).toBe('socket')
@@ -64,7 +64,7 @@ describe('WebSocketManager', () => {
     jest.spyOn(global, 'setTimeout')
 
     // Close the connection with a code that is not normal.
-    ws.close({ wasClean: false, code: 1003, reason: 'nope' })
+    server.close({ wasClean: false, code: 1003, reason: 'nope' })
 
     // Assertions
     expect(global.setTimeout).toBeCalledWith(expect.any(Function), 1000)
@@ -80,7 +80,7 @@ describe('WebSocketManager', () => {
     client.ws.close = jest.fn()
 
     // Simulate an error and close the connection.
-    ws.error()
+    server.error()
 
     // Assertions
     expect(console.error).toBeCalled(); // eslint-disable-line
