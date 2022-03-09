@@ -38,15 +38,11 @@ export default {
 };
 ```
 
-### `urlForDev`
+### `url`
 
 - Default: `wss://echo.websocket.events/`
 
-Defines the websocket URL to connect for local development.
-
-### `urlForProd`
-
-Defines the websocket URL to connect for production.
+Defines the websocket URL to connect.
 
 ### `reconnectInterval`
 
@@ -56,15 +52,14 @@ Defines the time interval after which a reconnection attempt takes place for a c
 
 ### Runtime Config
 
-URL's for dev and prod supplied via runtime config takes priority:-
+URL supplied via runtime config takes priority:-
 
 ```js
 // nuxt.config.js
 export default {
   // Via Runtime config
   publicRuntimeConfig: {
-    webSocketUrlForDev: process.env.WEBSOCKET_URL_FOR_DEV,
-    webSocketUrlForProd: process.env.WEBSOCKET_URL_FOR_PROD
+    webSocketUrl: process.env.WEBSOCKET_URL
   }
 };
 ```
