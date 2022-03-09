@@ -47,6 +47,7 @@
     "babel-jest": "latest",
     "eslint": "latest",
     "jest": "latest",
+    "jest-websocket-mock": "^2.3.0",
     "nuxt-edge": "latest",
     "playwright": "latest",
     "siroc": "latest",

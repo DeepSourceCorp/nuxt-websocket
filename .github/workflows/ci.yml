@@ -23,7 +23,9 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -43,8 +45,16 @@ jobs:
       - name: Lint
         run: yarn lint
 
-      # - name: Test
-      #   run: yarn test
+      - name: Test
+        run: yarn test
 
-      # - name: Coverage
-      #   uses: codecov/codecov-action@v1
+      - name: Report test coverage results to DeepSource
+        run: |
+          # Install deepsource CLI
+          curl https://deepsource.io/cli | sh
+
+          # From the root directory, run the report coverage command
+          ./bin/deepsource report --analyzer test-coverage --key javascript --value-file ./coverage/cobertura-coverage.xml
+
+        env:
+          DEEPSOURCE_DSN: ${{ secrets.DEEPSOURCE_DSN }}

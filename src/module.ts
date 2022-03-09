@@ -12,6 +12,7 @@ export interface ModuleOptions {
 const CONFIG_KEY = 'websocket'
 
 const websocketModule: Module<ModuleOptions> = function (moduleOptions) {
+  /* istanbul ignore next */
   const options = Object.assign(this.options[CONFIG_KEY] || {}, moduleOptions)
 
   const templatePath = join('src', 'templates')

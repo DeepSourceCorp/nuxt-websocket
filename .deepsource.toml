@@ -1,6 +1,10 @@
 version = 1
 
-test_patterns = ["**/test/**"]
+test_patterns = ["test/**"]
+
+[[analyzers]]
+name = "test-coverage"
+enabled = true
 
 [[analyzers]]
 name = "secrets"
