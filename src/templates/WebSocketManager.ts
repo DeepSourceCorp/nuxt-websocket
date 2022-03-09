@@ -32,6 +32,7 @@ export default class WebSocketManager {
    * @returns {void} Returns with no return value once the connection is established.
    */
   connect (): void {
+    /* istanbul ignore next */
     this.reconnectInterval = this.reconnectInterval || 1000
     this.ws = new WebSocket(this.url)
 
@@ -45,12 +46,14 @@ export default class WebSocketManager {
     }
 
     this.ws.onclose = (event) => {
+      /* istanbul ignore next */
       if (event) {
         // 1000 is the normal close event.
         if (event.code !== 1000) {
           const maxReconnectInterval = 3000
           setTimeout(() => {
             // Reconnect interval can't be > x seconds.
+            /* istanbul ignore next */
             if (this.reconnectInterval < maxReconnectInterval) {
               this.reconnectInterval += 1000
             }

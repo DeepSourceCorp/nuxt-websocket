@@ -20,12 +20,13 @@ const urlForProdFromOptions = '<%= options.urlForProd %>'
 const urlForDevFromOptions = '<%= options.urlForDev %>'
 
 export default ({ app }: { app: NuxtAppOptions }, inject: Inject): void => {
+  /* istanbul ignore next */
   const url =
-    process.env.NODE_ENV === 'development'
-      ? app.$config.webSocketUrlForDev ||
+  process.env.NODE_ENV === 'development'
+    ? app.$config.webSocketUrlForDev ||
         urlForDevFromOptions ||
         'wss://echo.websocket.events/'
-      : app.$config.webSocketUrlForProd || urlForProdFromOptions
+    : app.$config.webSocketUrlForProd || urlForProdFromOptions
 
   const emitter = new Vue()
   const manager = new WebSocketManager(url, emitter, reconnectInterval)
