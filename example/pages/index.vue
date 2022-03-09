@@ -67,9 +67,9 @@
           Open connection
         </button>
         <button
-          :disabled="!msgSend"
+          :disabled="isSendDisabled"
           class="btn btn-blue"
-          :class="{ 'cursor-not-allowed opacity-50': !msgSend }"
+          :class="{ 'cursor-not-allowed opacity-50': isSendDisabled}"
           @click.prevent="sendMessage"
         >
           Send message
@@ -105,6 +105,9 @@ export default {
         closed: 'Connection closed!'
       }
       return statusMap[this.connectionStatus]
+    },
+    isSendDisabled () {
+      return !this.msgSend || this.connectionStatus === 'closed'
     }
   },
   mounted () {
@@ -120,7 +123,7 @@ export default {
       this.toggleProperties()
     },
     closeConnection () {
-      this.$socketManager.close()
+      this.$socketManager.close(1000)
       this.toggleProperties(false)
       this.msgSend = ''
       this.msgReceived = ''
