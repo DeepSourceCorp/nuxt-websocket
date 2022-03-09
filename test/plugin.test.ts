@@ -7,7 +7,7 @@ import plugin from '../src/templates/plugin'
 const ctx = {
   app: {
     $config: {
-      webSocketUrlForDev: 'wss://echo.websocket.events/'
+      webSocketUrl: 'wss://echo.websocket.events/'
     }
   } as NuxtAppOptions
 }
@@ -15,10 +15,6 @@ const inject: jest.MockedFunction<Inject> = jest.fn()
 
 describe('plugin', () => {
   test('injects socket and socketManager plugins', () => {
-    Object.defineProperty(process.env, 'NODE_ENV', {
-      value: 'development'
-    })
-
     // Invoke plugin function.
     plugin(ctx, inject)
 

@@ -16,17 +16,13 @@ import WebSocketManager from './WebSocketManager'
 // this.$socketManager.send({ event: 'socket', data: 'Hello' })
 
 const reconnectInterval = Number('<%= options.reconnectInterval %>') || 1000
-const urlForProdFromOptions = '<%= options.urlForProd %>'
-const urlForDevFromOptions = '<%= options.urlForDev %>'
-
+const urlFromOptions = '<%= options.url %>'
 export default ({ app }: { app: NuxtAppOptions }, inject: Inject): void => {
   /* istanbul ignore next */
   const url =
-  process.env.NODE_ENV === 'development'
-    ? app.$config.webSocketUrlForDev ||
-        urlForDevFromOptions ||
-        'wss://echo.websocket.events/'
-    : app.$config.webSocketUrlForProd || urlForProdFromOptions
+    app.$config.webSocketUrl ||
+    urlFromOptions ||
+    'wss://echo.websocket.events/'
 
   const emitter = new Vue()
   const manager = new WebSocketManager(url, emitter, reconnectInterval)
