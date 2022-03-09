@@ -1,0 +1,59 @@
+name: 🐞 Bug
+description: Report bugs
+title: "Bug: <title>"
+labels: [bug, triage]
+
+body:
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      description: Please search to see if an issue already exists for the bug you encountered.
+      options:
+        - label: I have searched the existing issues
+          required: true
+  - type: input
+    attributes:
+      label: What version of the module are you facing this issue on?
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Please specify the Nuxt.js version
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: A link (CodeSandbox) that reproduces this error or a GitHub repository
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Current Behavior
+      description: A concise description of what you're experiencing.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Expected Behavior
+      description: A concise description of what you expected to happen.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. In this environment...
+        2. With this config...
+        3. Run '...'
+        4. See error...
+    validations:
+      required: false
+  - type: checkboxes
+    attributes:
+      label: Checklist
+      options:
+        - label: I have tested with the latest module version and the issue still occurs
+          required: true
+        - label: I have searched the issue tracker and this issue hasn't been reported yet
+          required: true
