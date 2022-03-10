@@ -1,18 +1,24 @@
-# nuxt-websocket
+<div align="center">
+<br>
+<br>
+  
+  <h1>Nuxt Websockets</h1>
 
 [![DeepSource](https://deepsource.io/gh/deepsourcelabs/nuxt-websocket.svg/?label=active+issues&show_trend=true&token=aDA1Tz2a_4FxFsxvu4by_loF)](https://deepsource.io/gh/deepsourcelabs/nuxt-websocket/?ref=repository-badge) [![DeepSource](https://deepsource.io/gh/deepsourcelabs/nuxt-websocket.svg/?label=resolved+issues&show_trend=true&token=aDA1Tz2a_4FxFsxvu4by_loF)](https://deepsource.io/gh/deepsourcelabs/nuxt-websocket/?ref=repository-badge)
 
-> Nuxt.js module for WebSocket interactions.
+  <p>A tiny Nuxt.js module for WebSocket interactions.</p>
+
+</div>
 
 ## Setup
 
-1. Add `@deepsourcelabs/nuxt-websocket` dependency to your project
+1. Add `@deepsource/nuxt-websocket` dependency to your project
 
 ```bash
-yarn add @deepsourcelabs/nuxt-websocket # or npm install @deepsourcelabs/nuxt-websocket
+yarn add @deepsource/nuxt-websocket # or npm install @deepsourcelabs/nuxt-websocket
 ```
 
-2. Add `@deepsourcelabs/nuxt-websocket` to the `modules` section of `nuxt.config.js`
+2. Add `@deepsource/nuxt-websocket` to the `modules` section of `nuxt.config.js`
 
 ```js
 {
@@ -27,32 +33,27 @@ yarn add @deepsourcelabs/nuxt-websocket # or npm install @deepsourcelabs/nuxt-we
 
 ## Options
 
-You can pass different options using the `websocket` property in your `nuxt.config.js`:
+You can pass different options using the `websocket` property in your `nuxt.config.js`
 
 ```js
 // nuxt.config.js
 export default {
   websocket: {
-    // module options
+    url: 'wss://echo.websocket.events/'
+    reconnectInterval: 1000
   }
 };
 ```
 
-### `url`
+| Parameter           | Default | Description                                                                                                      |
+| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------- |
+| `url`               | -       | WebSocket URL to connect                                                                                         |
+| `reconnectInterval` | 1000    | The time interval after which a reconnection attempt takes place for a close event. It should be less than 3s.   |
 
-- Default: `wss://echo.websocket.events/`
-
-Defines the WebSocket URL to connect.
-
-### `reconnectInterval`
-
-- Default: `1000`
-
-Defines the time interval after which a reconnection attempt takes place for a close event that isn't normal (code !== 1000). It should be less than 3s.
 
 ### Runtime Config
 
-URL supplied via runtime config takes priority:-
+You can also provide the values via a runtime config. The URL supplied here always takes precedence over the default params provided above
 
 ```js
 // nuxt.config.js
@@ -68,14 +69,14 @@ export default {
 
 ## API
 
-The following two plugins are injected into the Vue instance and are accessible across the app:-
+The following two plugins are injected into the Vue instance and are accessible across the app
 
 - `$socket` - [Vue](https://v2.vuejs.org/v2/api/#Instance-Methods-Events) instance.
 - `$socketManager` - [WebSocketManager](https://github.com/deepsourcelabs/nuxt-websocket/blob/docs/update-info/src/templates/WebSocketManager.ts) instance.
 
 ### `$socket`
 
-Defines a global event bus.
+It's a Vue instance that's used as an event bus
 
 ```js
 mounted() {
@@ -93,7 +94,7 @@ Please refer to the [official documentation](https://v2.vuejs.org/v2/api/#Instan
 
 ### `$socketManager`
 
-The WebSocketManager instance has access to the following methods:-
+The WebSocketManager instance has access to the following methods
 
 #### `connect(): void`
 
