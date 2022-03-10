@@ -12,18 +12,18 @@
 
 ## Setup
 
-1. Add `@deepsource/nuxt-websocket` dependency to your project
+1. Add `@deepsource/nuxt-websocket` dependency to your project.
 
 ```bash
-yarn add @deepsource/nuxt-websocket # or npm install @deepsourcelabs/nuxt-websocket
+yarn add @deepsource/nuxt-websocket # or npm install @deepsource/nuxt-websocket
 ```
 
-2. Add `@deepsource/nuxt-websocket` to the `modules` section of `nuxt.config.js`
+2. Add `@deepsource/nuxt-websocket` to the `modules` section of `nuxt.config.js`.
 
 ```js
 {
   modules: [
-    '@deepsourcelabs/nuxt-websocket',
+    '@deepsource/nuxt-websocket',
   ],
   websocket: {
     // module options
@@ -33,7 +33,7 @@ yarn add @deepsource/nuxt-websocket # or npm install @deepsourcelabs/nuxt-websoc
 
 ## Options
 
-You can pass different options using the `websocket` property in your `nuxt.config.js`
+You can pass different options using the `websocket` property in your `nuxt.config.js`.
 
 ```js
 // nuxt.config.js
@@ -45,15 +45,14 @@ export default {
 };
 ```
 
-| Parameter           | Default | Description                                                                                                      |
-| ------------------- | ------- | ---------------------------------------------------------------------------------------------------------------- |
-| `url`               | -       | WebSocket URL to connect                                                                                         |
-| `reconnectInterval` | 1000    | The time interval after which a reconnection attempt takes place for a close event. It should be less than 3s.   |
-
+| Parameter           | Default | Description                                                                                                    |
+| ------------------- | ------- | -------------------------------------------------------------------------------------------------------------- |
+| `url`               | -       | WebSocket URL to connect                                                                                       |
+| `reconnectInterval` | 1000    | The time interval after which a reconnection attempt takes place for a close event. It should be less than 3s. |
 
 ### Runtime Config
 
-You can also provide the values via a runtime config. The URL supplied here always takes precedence over the default params provided above
+You can also provide the URL via [runtime config](https://nuxtjs.org/docs/configuration-glossary/configuration-runtime-config/). It always takes precedence over the URL provided via options.
 
 ```js
 // nuxt.config.js
@@ -69,14 +68,14 @@ export default {
 
 ## API
 
-The following two plugins are injected into the Vue instance and are accessible across the app
+The following two plugins are injected into the Vue instance and are accessible across the app:-
 
 - `$socket` - [Vue](https://v2.vuejs.org/v2/api/#Instance-Methods-Events) instance.
 - `$socketManager` - [WebSocketManager](https://github.com/deepsourcelabs/nuxt-websocket/blob/docs/update-info/src/templates/WebSocketManager.ts) instance.
 
 ### `$socket`
 
-It's a Vue instance that's used as an event bus
+It's a Vue instance that's used as an event bus.
 
 ```js
 mounted() {
@@ -94,7 +93,7 @@ Please refer to the [official documentation](https://v2.vuejs.org/v2/api/#Instan
 
 ### `$socketManager`
 
-The WebSocketManager instance has access to the following methods
+The WebSocketManager instance has access to the following methods:-
 
 #### `connect(): void`
 
@@ -132,7 +131,7 @@ Closes the WebSocket connection, optionally using code as the the WebSocket conn
 this.$socketManager.close();
 ```
 
-> The [onmessage](https://github.com/deepsourcelabs/nuxt-websocket/blob/main/src/templates/WebSocketManager.ts#L38-L45) handler expects data received from the server as either a string or an object of the shape `{ event: string, data: string }`.
+> The [message event handler](https://github.com/deepsourcelabs/nuxt-websocket/blob/main/src/templates/WebSocketManager.ts#L39-L46) expects data received from the server as either a string or an object of the shape `{ event: string, data: string }`.
 
 ```js
 // Data received of the type string.
@@ -144,6 +143,8 @@ this.$socket.on("message", () => {});
 // { event: "socket", data: "Hello world" }
 this.$socket.on("socket", () => {});
 ```
+
+> The [close event handler](https://github.com/deepsourcelabs/nuxt-websocket/blob/main/src/templates/WebSocketManager.ts#L48-L64) attempts reconnection for a close event that is not normal ([connection close code](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent/code) other than 1000).
 
 ## Development
 
