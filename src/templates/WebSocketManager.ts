@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 /**
- * The WebSocketManager class that defines methods for websocket interaction.
+ * The WebSocketManager class that defines methods for WebSocket interaction.
  */
 export default class WebSocketManager {
   url: string;
@@ -13,7 +13,7 @@ export default class WebSocketManager {
    * Constructor function for the WebSocketManager class.
    * Initializes properties and invokes connect method.
    *
-   * @param {string} url The websocket URL to connect.
+   * @param {string} url The WebSocket URL to connect.
    * @param {number} reconnectInterval Time in ms to reconnect.
    * @returns {WebSocketManager} The WebSocketManager instance.
    */
@@ -71,7 +71,7 @@ export default class WebSocketManager {
   }
 
   /**
-   * Ensures the websocket connection is open.
+   * Ensures the WebSocket connection is open.
    *
    * @returns {Promise<void>} A promise that resolves with no return value straightaway if the WebSocket connection is open.
    * Or else, waits until the open event is fired.
@@ -103,7 +103,7 @@ export default class WebSocketManager {
   }
 
   /**
-   * Closes the websocket connection.
+   * Closes the WebSocket connection.
    *
    * @param {number | undefined} [code] The connection close code.
    * @param {string | undefined} [reason] The connection close reason.

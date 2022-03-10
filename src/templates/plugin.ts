@@ -8,7 +8,7 @@ import WebSocketManager from './WebSocketManager'
 
 // mounted() {
 //   this.$socket.$on(<event-name>, (data) => {
-//     console.log(`got ${data} from websocket`)
+//     console.log(`got ${data} from WebSocket`)
 //   })
 // }
 //

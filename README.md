@@ -2,7 +2,7 @@
 
 [![DeepSource](https://deepsource.io/gh/deepsourcelabs/nuxt-websocket.svg/?label=active+issues&show_trend=true&token=aDA1Tz2a_4FxFsxvu4by_loF)](https://deepsource.io/gh/deepsourcelabs/nuxt-websocket/?ref=repository-badge) [![DeepSource](https://deepsource.io/gh/deepsourcelabs/nuxt-websocket.svg/?label=resolved+issues&show_trend=true&token=aDA1Tz2a_4FxFsxvu4by_loF)](https://deepsource.io/gh/deepsourcelabs/nuxt-websocket/?ref=repository-badge)
 
-> Nuxt.js module for websocket interactions.
+> Nuxt.js module for WebSocket interactions.
 
 ## Setup
 
@@ -42,7 +42,7 @@ export default {
 
 - Default: `wss://echo.websocket.events/`
 
-Defines the websocket URL to connect.
+Defines the WebSocket URL to connect.
 
 ### `reconnectInterval`
 
@@ -78,7 +78,7 @@ Defines a global event bus.
 ```js
 mounted() {
   this.$socket.$on('socket', (data) => {
-    console.log(`got ${data} from websocket`);
+    console.log(`got ${data} from WebSocket`);
   });
 }
 
@@ -95,7 +95,7 @@ The WebSocketManager instance has access to the following methods:-
 
 #### `connect(): void`
 
-Establishes websocket connection. It defines handlers for message, close and error events.
+Establishes WebSocket connection. It defines handlers for message, close and error events.
 
 ```js
 this.$socketManager.connect();
@@ -105,7 +105,7 @@ this.$socketManager.connect();
 
 #### `ready(): Promise<void>`
 
-Returns a promise that resolves straightaway if the websocket connection is open. Or else, waits until the open event is fired.
+Returns a promise that resolves straightaway if the WebSocket connection is open. Or else, waits until the open event is fired.
 
 ```js
 await this.$socketManager.ready();
@@ -115,7 +115,7 @@ await this.$socketManager.ready();
 
 #### `send (message: string | Record<string, unknown>): Promise<void>`
 
-Waits for the websocket connection to be open if not already and transmits the data received.
+Waits for the WebSocket connection to be open if not already and transmits the data received.
 
 ```js
 await this.$socketManager.send({ event: "socket", data: "Hello world" });
