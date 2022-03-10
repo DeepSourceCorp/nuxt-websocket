@@ -22,11 +22,13 @@ export default ({ app }: { app: NuxtAppOptions }, inject: Inject): void => {
   const runtimeConfig = (app.$config && app.$config.websocket) || {}
 
   /* istanbul ignore next */
-  const url =
-    runtimeConfig.url || urlFromOptions || 'wss://echo.websocket.events/'
+  const url = runtimeConfig.url || urlFromOptions
 
-  const emitter = new Vue()
-  const manager = new WebSocketManager(url, emitter, reconnectInterval)
-  inject('socket', emitter)
-  inject('socketManager', manager)
+  /* istanbul ignore next */
+  if (url) {
+    const emitter = new Vue()
+    const manager = new WebSocketManager(url, emitter, reconnectInterval)
+    inject('socket', emitter)
+    inject('socketManager', manager)
+  }
 }
