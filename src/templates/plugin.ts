@@ -18,7 +18,7 @@ import WebSocketManager from './WebSocketManager'
 const reconnectInterval = Number('<%= options.reconnectInterval %>') || 1000
 const urlFromOptions = '<%= options.url %>'
 export default ({ app }: { app: NuxtAppOptions }, inject: Inject): void => {
-  // Runtime config
+  /* istanbul ignore next */
   const runtimeConfig = (app.$config && app.$config.websocket) || {}
 
   /* istanbul ignore next */

@@ -7,7 +7,9 @@ import plugin from '../src/templates/plugin'
 const ctx = {
   app: {
     $config: {
-      webSocketUrl: 'wss://echo.websocket.events/'
+      websocket: {
+        url: 'wss://echo.websocket.events/'
+      }
     }
   } as NuxtAppOptions
 }
