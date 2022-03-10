@@ -59,7 +59,9 @@ URL supplied via runtime config takes priority:-
 export default {
   // Via Runtime config
   publicRuntimeConfig: {
-    webSocketUrl: process.env.WEBSOCKET_URL
+    websocket: {
+      url: process.env.WEBSOCKET_URL
+    }
   }
 };
 ```
