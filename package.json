@@ -1,7 +1,7 @@
 {
-  "name": "@deepsourcelabs/nuxt-websocket",
+  "name": "@deepsource/nuxt-websocket",
   "version": "0.0.0",
-  "description": "Nuxt.js module for websocket interactions.",
+  "description": "A tiny Nuxt.js module for WebSocket interactions.",
   "keywords": [
     "nuxt",
     "module",
