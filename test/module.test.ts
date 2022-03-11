@@ -12,7 +12,7 @@ describe('module', () => {
 
   test('should register the plugin', () => {
     expectModuleToBeCalledWith('addPlugin', {
-      src: 'src/templates/plugin.ts',
+      src: require.resolve('../src/templates/plugin.ts'),
       fileName: 'nuxt-websocket/websocket.client.ts',
       options: getNuxt().options.websocket
     })
@@ -20,7 +20,7 @@ describe('module', () => {
 
   test('should render the template', () => {
     expectModuleToBeCalledWith('addTemplate', {
-      src: 'src/templates/WebSocketManager.ts',
+      src: require.resolve('../src/templates/WebSocketManager.ts'),
       fileName: 'nuxt-websocket/WebSocketManager.ts',
       options: getNuxt().options.websocket
     })
