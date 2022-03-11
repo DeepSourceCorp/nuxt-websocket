@@ -69,7 +69,7 @@
         <button
           :disabled="isSendDisabled"
           class="btn btn-blue"
-          :class="{ 'cursor-not-allowed opacity-50': isSendDisabled}"
+          :class="{ 'cursor-not-allowed opacity-50': isSendDisabled }"
           @click.prevent="sendMessage"
         >
           Send message

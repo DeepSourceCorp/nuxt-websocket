@@ -1,4 +1,8 @@
-import { expectModuleToBeCalledWith, setupTest } from '@nuxt/test-utils'
+import {
+  expectModuleToBeCalledWith,
+  getNuxt,
+  setupTest
+} from '@nuxt/test-utils'
 
 describe('module', () => {
   setupTest({
@@ -10,7 +14,7 @@ describe('module', () => {
     expectModuleToBeCalledWith('addPlugin', {
       src: 'src/templates/plugin.ts',
       fileName: 'nuxt-websocket/websocket.client.ts',
-      options: {}
+      options: getNuxt().options.websocket
     })
   })
 
@@ -18,7 +22,7 @@ describe('module', () => {
     expectModuleToBeCalledWith('addTemplate', {
       src: 'src/templates/WebSocketManager.ts',
       fileName: 'nuxt-websocket/WebSocketManager.ts',
-      options: {}
+      options: getNuxt().options.websocket
     })
   })
 })

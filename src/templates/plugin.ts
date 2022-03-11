@@ -17,13 +17,21 @@ import WebSocketManager from './WebSocketManager'
 
 const reconnectInterval = Number('<%= options.reconnectInterval %>') || 1000
 const urlFromOptions = '<%= options.url %>'
+
 export default ({ app }: { app: NuxtAppOptions }, inject: Inject): void => {
   /* istanbul ignore next */
   const runtimeConfig = (app.$config && app.$config.websocket) || {}
 
   /* istanbul ignore next */
-  const url =
-    runtimeConfig.url || urlFromOptions || 'wss://echo.websocket.events/'
+  const url = runtimeConfig.url || urlFromOptions
+
+  /* istanbul ignore next */
+  if (!url) {
+    // eslint-disable-next-line no-console
+    return console.error(
+      'WebSocket connection URL is required. Please specify it via options or runtime configuration.'
+    )
+  }
 
   const emitter = new Vue()
   const manager = new WebSocketManager(url, emitter, reconnectInterval)
