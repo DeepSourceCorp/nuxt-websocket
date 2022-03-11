@@ -1,6 +1,6 @@
 {
   "name": "@deepsource/nuxt-websocket",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A tiny Nuxt.js module for WebSocket interactions.",
   "keywords": [
     "nuxt",
