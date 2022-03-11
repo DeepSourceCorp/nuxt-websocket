@@ -1,4 +1,4 @@
-import { join } from 'path'
+import { extname, join } from 'path'
 import { Module } from '@nuxt/types'
 import Vue from 'vue'
 
@@ -15,18 +15,22 @@ const websocketModule: Module<ModuleOptions> = function (moduleOptions) {
   /* istanbul ignore next */
   const options = Object.assign(this.options[CONFIG_KEY] || {}, moduleOptions)
 
-  const templatePath = join('src', 'templates')
+  const webSocketManagerPath = require.resolve('./templates/WebSocketManager')
+  const pluginPath = require.resolve('./templates/plugin')
 
   this.addTemplate({
-    src: join(templatePath, 'WebSocketManager.ts'),
-    fileName: join('nuxt-websocket', 'WebSocketManager.ts'),
+    src: webSocketManagerPath,
+    fileName: join(
+      'nuxt-websocket',
+      `WebSocketManager${extname(webSocketManagerPath)}`
+    ),
     options
   })
 
   // Register plugin
   this.addPlugin({
-    src: join(templatePath, 'plugin.ts'),
-    fileName: join('nuxt-websocket', 'websocket.client.ts'),
+    src: pluginPath,
+    fileName: join('nuxt-websocket', `websocket.client${extname(pluginPath)}`),
     options
   })
 };
