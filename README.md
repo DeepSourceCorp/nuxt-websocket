@@ -10,6 +10,8 @@
 
 </div>
 
+> This module is only compatible with Nuxt v2 at the moment.
+
 ## Setup
 
 1. Add `@deepsource/nuxt-websocket` dependency to your project.
