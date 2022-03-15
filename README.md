@@ -35,7 +35,7 @@ yarn add @deepsource/nuxt-websocket # or npm install @deepsource/nuxt-websocket
 
 ### TypeScript
 
-Add the types to your "types" array in `tsconfig.json` after the `@nuxt/types` (Nuxt 2.9.0+) entry.
+Add the types to your `types` array in `tsconfig.json` after the `@nuxt/types` (Nuxt 2.9.0+) entry.
 
 ```json
 {
