@@ -99,7 +99,7 @@ mounted() {
 }
 
 beforeDestroy() {
-  this.$socket.off('socket');
+  this.$socket.$off('socket');
 }
 ```
 
@@ -150,12 +150,12 @@ this.$socketManager.close();
 ```js
 // Data received of the type string.
 // Emits an event by the name `message`.
-this.$socket.on("message", () => {});
+this.$socket.$on("message", () => {});
 
 // Data received as an object.
 // Emits an event based on the value for the 'event' key.
 // { event: "socket", data: "Hello world" }
-this.$socket.on("socket", () => {});
+this.$socket.$on("socket", () => {});
 ```
 
 > The [close event handler](https://github.com/deepsourcelabs/nuxt-websocket/blob/main/src/templates/WebSocketManager.ts#L48-L64) attempts reconnection for a close event that is not normal ([connection close code](https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent/code) other than 1000).
